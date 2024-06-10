@@ -1,0 +1,28 @@
+# Tips and Tricks
+
+- Don't use Counts where possible as they are hard to track, and can lead to Resources being deployed
+  - Used named loops where ever possible
+  - Counts are good for Feature Toggles
+- Keep everything simple. Terraform is best as Infrastructure as Text.
+- Avoid using Remote State Data blocks, they make managing a pipeline super tricky and are a security issue.
+- Any secret touched by Terraform goes in the state file, remember this and treat the state file as sensitive
+- Read the full name of the resource, and follow it in your file to help understand what is going wrong.
+- Terraform has 3 different types of loops
+  - Resource loops with the for_each attribute
+  - Dynamic blocks with the for_each attribute
+  - Variable construction with the for operator
+- Debug does not do what you want, it only debugs tf application, nothing to do with your code
+- State files are a good lifecycle boundary. If you run a destroy, it should pack up your whole project and nothing more or less
+- ChatGPT and Copilot just don't get it. They are trained on old versions and don't understand how a block works.
+- Use Vars for all inputs, Locals for calculations
+  - This leads to less places to look for things to change.
+- use EOT descriptions to make Objects clearer, and to print nice to the CLI inputs and TFdocs
+- Use Object based Vars and outputs to give context and a good boundary for description.
+  - Grouping by lifecycle. Naming block has all you need for naming, no need to split over 5 places.
+- String interpolation is good for simple strings, otherwise concat and join leave more power for it to expand.
+- alt click in the shell and in your files is handy for following blocks around.
+- Modules are good for building a resource that has a singular lifecycle and intent.
+  - If you are struggling to not name a module the resource name, its too simple.
+- Modules are not a good way to group resources together, use loops and locals for this.
+- Modules are not their own entity. Each Resource is measured by itself on the dependency graph.
+- Modules are best avoided, they are a pain to work with and make the code harder to read.
